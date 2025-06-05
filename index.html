@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポモドーロタイマー</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Digital+7+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>ポモドーロタイマー</h1>
+        <div class="timer-container">
+            <div id="timer" class="timer">25:00</div>
+        </div>
+        <div class="controls">
+            <button id="startBtn" class="btn">開始</button>
+            <button id="stopBtn" class="btn">停止</button>
+            <button id="resetBtn" class="btn">リセット</button>
+        </div>
+        <div class="mode-selector">
+            <button id="pomodoroBtn" class="mode-btn active">ポモドーロ (25分)</button>
+            <button id="shortBreakBtn" class="mode-btn">短い休憩 (5分)</button>
+            <button id="longBreakBtn" class="mode-btn">長い休憩 (15分)</button>
+        </div>
+    </div>
+    <audio id="alarm" src="alarm.mp3"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
