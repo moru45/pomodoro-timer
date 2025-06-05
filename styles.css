@@ -42,7 +42,26 @@ h1 {
 }
 
 .controls {
+    margin-bottom: 1rem;
+}
+
+.alarm-controls {
     margin-bottom: 2rem;
+    text-align: center;
+}
+
+#stopAlarmBtn {
+    background: #f44336;
+    color: #fff;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#stopAlarmBtn:hover {
+    opacity: 0.8;
 }
 
 .btn {
