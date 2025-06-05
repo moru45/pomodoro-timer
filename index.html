@@ -19,9 +19,27 @@
             <button id="resetBtn" class="btn">リセット</button>
         </div>
         <div class="mode-selector">
-            <button id="pomodoroBtn" class="mode-btn active">ポモドーロ (25分)</button>
-            <button id="shortBreakBtn" class="mode-btn">短い休憩 (5分)</button>
-            <button id="longBreakBtn" class="mode-btn">長い休憩 (15分)</button>
+            <div class="mode-item">
+                <button id="pomodoroBtn" class="mode-btn active">ポモドーロ</button>
+                <div class="slider-container">
+                    <input type="range" id="pomodoroSlider" min="1" max="60" value="25" class="time-slider">
+                    <span id="pomodoroValue" class="slider-value">25分</span>
+                </div>
+            </div>
+            <div class="mode-item">
+                <button id="shortBreakBtn" class="mode-btn">短い休憩</button>
+                <div class="slider-container">
+                    <input type="range" id="shortBreakSlider" min="1" max="15" value="5" class="time-slider">
+                    <span id="shortBreakValue" class="slider-value">5分</span>
+                </div>
+            </div>
+            <div class="mode-item">
+                <button id="longBreakBtn" class="mode-btn">長い休憩</button>
+                <div class="slider-container">
+                    <input type="range" id="longBreakSlider" min="1" max="30" value="15" class="time-slider">
+                    <span id="longBreakValue" class="slider-value">15分</span>
+                </div>
+            </div>
         </div>
     </div>
     <audio id="alarm" src="alarm.mp3"></audio>

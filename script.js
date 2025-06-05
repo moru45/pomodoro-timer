@@ -7,11 +7,23 @@ class PomodoroTimer {
         this.pomodoroBtn = document.getElementById('pomodoroBtn');
         this.shortBreakBtn = document.getElementById('shortBreakBtn');
         this.longBreakBtn = document.getElementById('longBreakBtn');
+        this.pomodoroSlider = document.getElementById('pomodoroSlider');
+        this.shortBreakSlider = document.getElementById('shortBreakSlider');
+        this.longBreakSlider = document.getElementById('longBreakSlider');
+        this.pomodoroValue = document.getElementById('pomodoroValue');
+        this.shortBreakValue = document.getElementById('shortBreakValue');
+        this.longBreakValue = document.getElementById('longBreakValue');
         this.alarm = document.getElementById('alarm');
 
         this.isRunning = false;
         this.timeLeft = 1500; // 25分（ポモドーロ時間）
         this.interval = null;
+        this.defaultTimes = {
+            pomodoro: 25,
+            shortBreak: 5,
+            longBreak: 15
+        };
+        this.currentTimes = { ...this.defaultTimes };
 
         this.setupEventListeners();
     }
@@ -23,6 +35,34 @@ class PomodoroTimer {
         this.pomodoroBtn.addEventListener('click', () => this.setMode('pomodoro'));
         this.shortBreakBtn.addEventListener('click', () => this.setMode('shortBreak'));
         this.longBreakBtn.addEventListener('click', () => this.setMode('longBreak'));
+        
+        // スライダーのイベントリスナー
+        this.pomodoroSlider.addEventListener('input', () => {
+            this.currentTimes.pomodoro = parseInt(this.pomodoroSlider.value);
+            this.pomodoroValue.textContent = `${this.pomodoroSlider.value}分`;
+            if (this.getActiveMode() === 'pomodoro' && !this.isRunning) {
+                this.timeLeft = this.currentTimes.pomodoro * 60;
+                this.updateTimerDisplay();
+            }
+        });
+
+        this.shortBreakSlider.addEventListener('input', () => {
+            this.currentTimes.shortBreak = parseInt(this.shortBreakSlider.value);
+            this.shortBreakValue.textContent = `${this.shortBreakSlider.value}分`;
+            if (this.getActiveMode() === 'shortBreak' && !this.isRunning) {
+                this.timeLeft = this.currentTimes.shortBreak * 60;
+                this.updateTimerDisplay();
+            }
+        });
+
+        this.longBreakSlider.addEventListener('input', () => {
+            this.currentTimes.longBreak = parseInt(this.longBreakSlider.value);
+            this.longBreakValue.textContent = `${this.longBreakSlider.value}分`;
+            if (this.getActiveMode() === 'longBreak' && !this.isRunning) {
+                this.timeLeft = this.currentTimes.longBreak * 60;
+                this.updateTimerDisplay();
+            }
+        });
     }
 
     start() {
@@ -76,16 +116,7 @@ class PomodoroTimer {
 
     getCurrentModeTime(mode) {
         mode = mode || this.getActiveMode();
-        switch (mode) {
-            case 'pomodoro':
-                return 1500; // 25分
-            case 'shortBreak':
-                return 300; // 5分
-            case 'longBreak':
-                return 900; // 15分
-            default:
-                return 1500; // デフォルトはポモドーロ
-        }
+        return this.currentTimes[mode] * 60;
     }
 
     getActiveMode() {
