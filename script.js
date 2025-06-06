@@ -170,7 +170,7 @@ class PomodoroTimer {
 // アラーム音を追加
 const audio = new Audio();
 audio.src = 'Censor_Bleep-Synth03-1(Short).mp3';
-audio.loop = false;
+audio.loop = true;
 document.getElementById('alarm').src = audio.src;
 
 // タイマーの初期化
