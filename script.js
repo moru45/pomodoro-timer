@@ -14,6 +14,9 @@ class PomodoroTimer {
         this.shortBreakValue = document.getElementById('shortBreakValue');
         this.longBreakValue = document.getElementById('longBreakValue');
         this.alarm = document.getElementById('alarm');
+        this.stopAlarmBtn = document.getElementById('stopAlarmBtn');
+        this.resetTimeBtn = document.getElementById('resetTimeBtn');
+        this.isAlarmPlaying = false; // アラームが鳴っているかどうかのフラグ
 
         this.isRunning = false;
         this.timeLeft = 1500; // 25分（ポモドーロ時間）
@@ -63,6 +66,38 @@ class PomodoroTimer {
                 this.updateTimerDisplay();
             }
         });
+
+        // アラームを止めるボタンのイベントリスナー
+        this.stopAlarmBtn.addEventListener('click', () => {
+            this.alarm.pause();
+            this.alarm.currentTime = 0;
+            this.isAlarmPlaying = false;
+            this.stopAlarmBtn.style.display = 'none';
+        });
+
+        // デフォルト値に戻すボタンのイベントリスナー
+        this.resetTimeBtn.addEventListener('click', () => {
+            // スライダーの値をデフォルト値に戻す
+            this.pomodoroSlider.value = this.defaultTimes.pomodoro;
+            this.shortBreakSlider.value = this.defaultTimes.shortBreak;
+            this.longBreakSlider.value = this.defaultTimes.longBreak;
+    
+            // スライダーの値を反映
+            this.currentTimes.pomodoro = this.defaultTimes.pomodoro;
+            this.currentTimes.shortBreak = this.defaultTimes.shortBreak;
+            this.currentTimes.longBreak = this.defaultTimes.longBreak;
+            
+            // 表示テキストをデフォルト値に戻す
+            this.pomodoroValue.textContent = `${this.defaultTimes.pomodoro}分`;
+            this.shortBreakValue.textContent = `${this.defaultTimes.shortBreak}分`;
+            this.longBreakValue.textContent = `${this.defaultTimes.longBreak}分`;
+            
+            // 現在のモードに応じてタイマーをリセット
+            if (!this.isRunning) {
+                this.timeLeft = this.getCurrentModeTime();
+                this.updateTimerDisplay();
+            }
+        });    
     }
 
     start() {
@@ -77,6 +112,8 @@ class PomodoroTimer {
             if (this.timeLeft <= 0) {
                 this.stop();
                 this.alarm.play();
+                this.isAlarmPlaying = true;
+                this.stopAlarmBtn.style.display = 'inline-block';
                 return;
             }
             
@@ -137,4 +174,4 @@ audio.loop = false;
 document.getElementById('alarm').src = audio.src;
 
 // タイマーの初期化
-const timer = new PomodoroTimer();
+const timer = new PomodoroTimer();  
