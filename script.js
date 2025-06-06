@@ -169,9 +169,17 @@ class PomodoroTimer {
 
 // アラーム音を追加
 const audio = new Audio();
-audio.src = 'Censor_Bleep-Synth03-1(Short).mp3';
-audio.loop = true;
+//audio.src = 'Censor_Bleep-Synth03-1(Short).mp3';
+audio.src = 'Censor_Bleep-Synth03-3(Long).mp3';
+audio.loop = false; // ループを無効に
 document.getElementById('alarm').src = audio.src;
 
 // タイマーの初期化
-const timer = new PomodoroTimer();  
+const timer = new PomodoroTimer();
+
+// 音が終わったときに自動的に再生する
+audio.addEventListener('ended', () => {
+    if (this.isAlarmPlaying) {
+        audio.play();
+    }
+});
